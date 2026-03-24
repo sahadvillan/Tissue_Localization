@@ -1,0 +1,24 @@
+# Data and Large Models
+Tracking_Rigid_Training/
+Tracking_Rigid_Testing_GT/
+Tracking_Rigid_Testing_Revision/
+checkpoints/
+
+# Results and Outputs
+tracking_vis*/
+tracking_vis/
+saved_videos/
+*.mp4
+*.gif
+*.png
+*.npy
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+cotracker.egg-info/
+
+# System
+.DS_Store
+Thumbs.db
