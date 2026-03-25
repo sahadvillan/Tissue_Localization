@@ -17,7 +17,10 @@ class TissueLocalizer:
         )
         self.model.to(self.device)
         self.mc_wrapper = MCDropoutWrapper(self.model)
-
+        # pass frame_paths to the constructor or set self.frames
+        # before calling track_instrument_tips.
+        # Example: self.frames = frame_paths
+        
     def sample_tissue_points(self, mask_path, num_points=50):
         """Sample points from background (mask == 0)."""
         mask = np.array(Image.open(mask_path))
