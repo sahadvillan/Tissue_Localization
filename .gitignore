@@ -6,12 +6,16 @@ checkpoints/
 
 # Results and Outputs
 tracking_vis*/
-tracking_vis/
+phantom_results/
+shaft_results/
+surgical_gps_results/
 saved_videos/
 *.mp4
 *.gif
 *.png
 *.npy
+*.jpg
+*.jpeg
 
 # Python
 __pycache__/
