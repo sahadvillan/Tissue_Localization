@@ -26,6 +26,19 @@ class MCDropoutWrapper:
         self.enabled = True
         return count
 
+    def disable_mc_dropout(self):
+        """
+        Disables dropout by returning those layers to eval mode.
+        """
+        count = 0
+        for m in self.model.modules():
+            if m.__class__.__name__ == "Dropout":
+                m.eval()
+                count += 1
+        self.enabled = False
+        return count
+
+
     def stochastic_forward(self, *args, n_samples=10, **kwargs):
         """
         Runs multiple forward passes and collects results.

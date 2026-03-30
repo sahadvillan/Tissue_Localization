@@ -1,4 +1,5 @@
 import os
+import re
 import glob
 import cv2
 import numpy as np
@@ -19,9 +20,13 @@ def main():
     phantom_layer = SurgicalPhantomLayer(CHECKPOINT)
     
     # 3. Prepare frame paths
-    frame_paths = sorted(glob.glob(os.path.join(RAW_DIR, "*.png")))
+    # Sort numerically (img_9 before img_10, not lexicographically)
+    frame_paths = sorted(
+        glob.glob(os.path.join(RAW_DIR, "*.png")),
+        key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1))
+    )
     # Limit for demo purposes or process all
-    frame_paths = frame_paths[:200] 
+    frame_paths = frame_paths[:200]
     
     # 4. Track Instrument Tips
     # tracks: (T, N, 2), vis: (T, N), oris: (T, N, 2)
@@ -41,10 +46,7 @@ def main():
     for t in range(T):
         img = cv2.imread(frame_paths[t])
         
-        # Add a subtle HUD for "Phantom Mode"
-        cv2.rectangle(img, (0, 0), (img.shape[1], 60), (0, 0, 0), -1)
-        cv2.putText(img, "DA VINCI AUGMENTED REALITY | PHANTOM MODE ACTIVE", (20, 40), 
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
+
         
         for n in range(N):
             pos = tracks[t, n]
